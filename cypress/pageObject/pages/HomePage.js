@@ -16,6 +16,10 @@ class HomePage {
       .should("be.visible")
       .click();
   }
+
+  clickWidgetsCard() {
+    cy.contains("Widgets").should("be.visible").click();
+  }
 }
 
 module.exports = {

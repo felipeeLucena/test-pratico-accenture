@@ -1,10 +1,17 @@
 class BrowserWindowsPage {
+  constructor() {
+    this.selectors = {
+      windowButton: "#windowButton",
+      body: "body"
+    };
+  }
+
   openNewWindowAndVisitSamplePage() {
     cy.window().then(win => {
       cy.stub(win, "open").as("windowOpen");
     });
 
-    cy.get("#windowButton").should("be.visible").click();
+    cy.get(this.selectors.windowButton).should("be.visible").click();
 
     cy.get("@windowOpen").then(stub => {
       const url = stub.getCall(0).args[0];
@@ -21,7 +28,7 @@ class BrowserWindowsPage {
   }
 
   expectSamplePageNotVisible() {
-    cy.get("body").should("not.contain", "This is a sample page");
+    cy.get(this.selectors.body).should("not.contain", "This is a sample page");
   }
 
   expectBrowserWindowsPageVisible() {
