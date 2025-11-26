@@ -22,10 +22,10 @@ When("eu preencher o formulário de estudante com dados válidos", () => {
   practiceForm.fillFirstName(studentData.firstName);
   practiceForm.fillLastName(studentData.lastName);
   practiceForm.fillEmail(studentData.email);
-  practiceForm.selectGender("Male");
+  practiceForm.selectGender(studentData.gender);
   practiceForm.fillMobile(studentData.mobile);
-  practiceForm.selectHobby("Sports");
-  practiceForm.uploadPicture("cypress/fixtures/upload-test.txt");
+  practiceForm.selectHobby(studentData.hobby);
+  practiceForm.uploadPicture(studentData.filePath);
   practiceForm.fillCurrentAddress(studentData.address);
 });
 

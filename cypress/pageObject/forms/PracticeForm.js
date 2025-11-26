@@ -1,38 +1,44 @@
 class PracticeForm {
   fillFirstName(firstName) {
-    cy.get("#firstName").clear().type(firstName);
+    cy.get("#firstName").should("be.visible").clear().type(firstName);
   }
 
   fillLastName(lastName) {
-    cy.get("#lastName").clear().type(lastName);
+    cy.get("#lastName").should("be.visible").clear().type(lastName);
   }
 
   fillEmail(email) {
-    cy.get("#userEmail").clear().type(email);
+    cy.get("#userEmail").should("be.visible").clear().type(email);
   }
 
   selectGender(genderLabel) {
-    cy.contains("#genterWrapper label", genderLabel).click();
+    cy.contains("#genterWrapper label", genderLabel)
+      .should("be.visible")
+      .click();
   }
 
   fillMobile(mobile) {
-    cy.get("#userNumber").clear().type(mobile);
+    cy.get("#userNumber").should("be.visible").clear().type(mobile);
   }
 
   selectHobby(hobbyLabel) {
-    cy.contains("#hobbiesWrapper label", hobbyLabel).click();
+    cy.contains("#hobbiesWrapper label", hobbyLabel)
+      .should("be.visible")
+      .click();
   }
 
   uploadPicture(filePath) {
-    cy.get("#uploadPicture").selectFile(filePath, { force: true });
+    cy.get("#uploadPicture").should("be.visible").selectFile(filePath, {
+      force: true
+    });
   }
 
   fillCurrentAddress(address) {
-    cy.get("#currentAddress").clear().type(address);
+    cy.get("#currentAddress").should("be.visible").clear().type(address);
   }
 
   submit() {
-    cy.get("#submit").click({ force: true });
+    cy.get("#submit").should("be.visible").click({ force: true });
   }
 
   expectModalVisible() {
