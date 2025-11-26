@@ -8,6 +8,7 @@ Projeto de automação de testes criado para o desafio técnico, utilizando **Cy
 - **Cucumber (`@badeball/cypress-cucumber-preprocessor`)** – BDD com cenários em Gherkin
 - **Cypress Plugin API (`cy.api`)** – melhoria de DX para testes de API
 - **@4tw/cypress-drag-drop** – biblioteca para drag and drop em Cypress
+- **Allure Report** – relatórios detalhados e visuais dos testes
 - **Page Object Model (POM)** – para APIs e telas de UI
 - **Geradores de dados** – usuários dinâmicos para evitar massa estática
 - **JavaScript (ES6+)** – código simples, limpo e reutilizável
@@ -120,26 +121,35 @@ npx cypress run --env TAGS='@api'
 npx cypress run --env TAGS='@ui'
 ```
 
-### Pipelines de CI (GitHub Actions)
+4. Gerar e visualizar relatório Allure localmente:
 
-O repositório possui dois workflows independentes em `.github/workflows`:
+```bash
+# Gerar relatório após executar os testes
+npm run allure:generate
 
-- **`ci-api.yml` – CI de API**
-  - Executa apenas cenários marcados com a tag **`@api`**.
+# Abrir relatório no navegador
+npm run allure:open
+
+# Ou gerar e abrir em um servidor temporário
+npm run allure:serve
+```
+
+### Pipeline de CI (GitHub Actions)
+
+O repositório possui um workflow unificado em `.github/workflows/ci.yml`:
+
+- **`ci.yml` – CI Completo**
+  - Executa **todos os testes** (API e UI) em uma única execução.
   - Roda em `push` e `pull_request` para a branch `main`.
+  - Possui o gatilho manual **`workflow_dispatch`**, permitindo rodar a esteira direto pela aba **Actions** do GitHub (botão **Run workflow**) mesmo sem novos commits.
+  - **Gera e publica relatório Allure** automaticamente após a execução dos testes.
+  - O relatório fica disponível como artefato na aba **Actions** do GitHub, podendo ser baixado e visualizado localmente.
   - Comando principal:
     ```bash
-    npx cypress run --env TAGS='@api'
-    ```
-- **`ci-front.yml` – CI de Front/UI**
-  - Pensado para quando os testes de UI forem adicionados em `cypress/e2e/front`.
-  - Executa apenas cenários marcados com a tag **`@ui`**.
-  - Comando principal:
-    ```bash
-    npx cypress run --env TAGS='@ui'
+    npx cypress run
     ```
 
-Ambos os workflows também possuem o gatilho manual **`workflow_dispatch`**, permitindo rodar a esteira direto pela aba **Actions** do GitHub (botão **Run workflow**) mesmo sem novos commits.
+```
 
 ### Configurações do Cypress
 
@@ -147,6 +157,16 @@ Ambos os workflows também possuem o gatilho manual **`workflow_dispatch`**, per
 - **Retries**: 
   - Modo headless (`cypress run`): 2 tentativas em caso de falha
   - Modo interativo (`cypress open`): sem retries (0 tentativas)
+
+### Relatórios Allure
+
+O projeto utiliza **Allure Report** para gerar relatórios detalhados dos testes:
+
+- **Integração com BDD**: Exibe cenários, steps e resultados do Cucumber de forma organizada
+- **Screenshots e vídeos**: Capturas automáticas de falhas integradas ao relatório
+- **Métricas e estatísticas**: Taxa de sucesso, duração dos testes, histórico de execuções
+- **CI/CD**: Relatório gerado automaticamente no GitHub Actions e disponível como artefato
+- **Visualização local**: Use `npm run allure:open` para abrir o relatório após gerar com `npm run allure:generate`
 
 ### Observações sobre o fluxo de negócio
 

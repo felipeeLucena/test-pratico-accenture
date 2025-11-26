@@ -6,6 +6,10 @@ cypress/videos/
 cypress/screenshots/
 cypress/downloads/
 
+# Relatórios Allure
+allure-results/
+allure-report/
+
 # Logs e cache
 npm-debug.log*
 yarn-debug.log*
