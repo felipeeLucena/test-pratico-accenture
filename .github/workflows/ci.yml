@@ -24,12 +24,29 @@ jobs:
         run: npm install
 
       - name: Executar todos os testes
-        run: npx cypress run
+        run: npx cypress run --env allure=true
         continue-on-error: true
+
+      - name: Verificar resultados do Allure
+        if: always()
+        run: |
+          if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+            echo "Resultados do Allure encontrados"
+            ls -la allure-results
+          else
+            echo "Aviso: Nenhum resultado do Allure encontrado"
+            mkdir -p allure-results
+          fi
 
       - name: Gerar relatório Allure
         if: always()
-        run: npx allure generate allure-results --clean -o allure-report
+        run: |
+          if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+            npx allure generate allure-results --clean -o allure-report
+          else
+            echo "Não foi possível gerar o relatório: nenhum resultado encontrado"
+            exit 0
+          fi
 
       - name: Publicar relatório Allure
         if: always()
@@ -38,4 +55,13 @@ jobs:
           name: allure-report
           path: allure-report
           retention-days: 30
+
+      - name: Publicar resultados brutos do Allure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 30
+          if-no-files-found: ignore
 

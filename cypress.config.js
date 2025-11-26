@@ -4,6 +4,10 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/**/*.feature",
     baseUrl: "https://demoqa.com",
     supportFile: "cypress/support/e2e.js",
+    env: {
+      allure: true,
+      allureReuseAfterSpec: true
+    },
     retries: {
       runMode: 2,
       openMode: 0
