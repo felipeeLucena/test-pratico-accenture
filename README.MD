@@ -151,7 +151,6 @@ O repositório possui um workflow unificado em `.github/workflows/ci.yml`:
 
 ### Configurações do Cypress
 
-- **Timeout padrão**: 15 segundos para comandos e assertions (`defaultCommandTimeout: 15000`)
 - **Retries**: 
   - Modo headless (`cypress run`): 2 tentativas em caso de falha
   - Modo interativo (`cypress open`): sem retries (0 tentativas)
