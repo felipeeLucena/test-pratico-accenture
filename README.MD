@@ -7,7 +7,8 @@ Projeto de automação de testes criado para o desafio técnico, utilizando **Cy
 - **Cypress 15** – framework principal de automação
 - **Cucumber (`@badeball/cypress-cucumber-preprocessor`)** – BDD com cenários em Gherkin
 - **Cypress Plugin API (`cy.api`)** – melhoria de DX para testes de API
-- **Page Object Model (POM)** – para APIs e (futuro) telas de UI
+- **@4tw/cypress-drag-drop** – biblioteca para drag and drop em Cypress
+- **Page Object Model (POM)** – para APIs e telas de UI
 - **Geradores de dados** – usuários dinâmicos para evitar massa estática
 - **JavaScript (ES6+)** – código simples, limpo e reutilizável
 
@@ -28,6 +29,8 @@ cypress/
       web-tables.js
       progress-bar.feature   # Cenário 5: Progress Bar
       progress-bar.js
+      sortable.feature       # Cenário 6: Sortable (Drag and Drop)
+      sortable.js
   pageObject/
     api/
       BookstoreApi.js        # POM de serviços da API BookStore/Account
@@ -40,6 +43,8 @@ cypress/
       WebTablesPage.js
       WidgetsPage.js
       ProgressBarPage.js
+      InteractionsPage.js
+      SortablePage.js
     forms/
       PracticeForm.js        # POM do formulário de prática
 src/
@@ -67,6 +72,7 @@ cypress.config.js            # Configuração Cypress + Cucumber
     2. **Browser Windows** – Abertura de nova janela e validação de conteúdo
     3. **Web Tables** – CRUD completo de registros + Bônus (criação/deleção de 12 registros dinâmicos)
     4. **Progress Bar** – Controle da barra de progresso (parar antes de 25%, validar e completar até 100%)
+    5. **Sortable** – Ordenação de elementos em ordem decrescente usando drag and drop
 
 ### Padrões adotados
 
