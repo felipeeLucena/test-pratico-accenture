@@ -141,6 +141,13 @@ O repositório possui dois workflows independentes em `.github/workflows`:
 
 Ambos os workflows também possuem o gatilho manual **`workflow_dispatch`**, permitindo rodar a esteira direto pela aba **Actions** do GitHub (botão **Run workflow**) mesmo sem novos commits.
 
+### Configurações do Cypress
+
+- **Timeout padrão**: 15 segundos para comandos e assertions (`defaultCommandTimeout: 15000`)
+- **Retries**: 
+  - Modo headless (`cypress run`): 2 tentativas em caso de falha
+  - Modo interativo (`cypress open`): sem retries (0 tentativas)
+
 ### Observações sobre o fluxo de negócio
 
 - Cada cenário BDD pode criar seu próprio usuário/token para manter independência entre testes.

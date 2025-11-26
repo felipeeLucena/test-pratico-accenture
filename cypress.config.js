@@ -4,6 +4,10 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/**/*.feature",
     baseUrl: "https://demoqa.com",
     supportFile: "cypress/support/e2e.js",
+    retries: {
+      runMode: 2,
+      openMode: 0
+    },
     async setupNodeEvents(on, config) {
       const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
       const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
