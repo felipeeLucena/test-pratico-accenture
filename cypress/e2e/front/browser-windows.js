@@ -23,6 +23,8 @@ Then("a nova janela deve exibir a mensagem This is a sample page", () => {
 
 Then("eu devo retornar para a página Browser Windows", () => {
   browserWindowsPage.closeSamplePageAndReturn();
+  browserWindowsPage.expectSamplePageNotVisible();
+  browserWindowsPage.expectBrowserWindowsPageVisible();
 });
 
 

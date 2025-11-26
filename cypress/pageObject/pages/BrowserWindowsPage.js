@@ -19,6 +19,14 @@ class BrowserWindowsPage {
   closeSamplePageAndReturn() {
     cy.go("back");
   }
+
+  expectSamplePageNotVisible() {
+    cy.get("body").should("not.contain", "This is a sample page");
+  }
+
+  expectBrowserWindowsPageVisible() {
+    cy.contains("Browser Windows").should("be.visible");
+  }
 }
 
 module.exports = {
