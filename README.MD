@@ -97,6 +97,8 @@ O repositório possui dois workflows independentes em `.github/workflows`:
     npx cypress run --env TAGS='@ui'
     ```
 
+Ambos os workflows também possuem o gatilho manual **`workflow_dispatch`**, permitindo rodar a esteira direto pela aba **Actions** do GitHub (botão **Run workflow**) mesmo sem novos commits.
+
 ### Observações sobre o fluxo de negócio
 
 - Cada cenário BDD pode criar seu próprio usuário/token para manter independência entre testes.
@@ -104,5 +106,3 @@ O repositório possui dois workflows independentes em `.github/workflows`:
   - criação de usuário → token → autorização → aluguel de livros → consulta do usuário com livros associados.
 
 ---
-
-Esse README já deixa claro **tecnologias, arquitetura, onde está API e onde ficará o front**, e passa bem a imagem de um projeto pensado com cuidado. Se quiser, posso complementar com uma seção de “Decisões técnicas” explicando por que escolheu Cypress + Cucumber + POM.
