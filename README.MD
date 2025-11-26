@@ -149,8 +149,6 @@ O repositório possui um workflow unificado em `.github/workflows/ci.yml`:
     npx cypress run
     ```
 
-```
-
 ### Configurações do Cypress
 
 - **Timeout padrão**: 15 segundos para comandos e assertions (`defaultCommandTimeout: 15000`)
@@ -173,5 +171,3 @@ O projeto utiliza **Allure Report** para gerar relatórios detalhados dos testes
 - Cada cenário BDD pode criar seu próprio usuário/token para manter independência entre testes.
 - O cenário completo de aluguel de livros valida o fluxo fim-a-fim:
   - criação de usuário → token → autorização → aluguel de livros → consulta do usuário com livros associados.
-
----
