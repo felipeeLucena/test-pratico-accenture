@@ -19,12 +19,34 @@ cypress/
     api/
       bookstore.feature      # Cenários BDD da Parte 1 (API)
       bookstore.js           # Step definitions dos cenários de API
+    front/
+      practice-form.feature  # Cenário 1: Practice Form
+      practice-form.js
+      browser-windows.feature # Cenário 2: Browser Windows
+      browser-windows.js
+      web-tables.feature     # Cenários 3 e 4: Web Tables (CRUD + Bônus)
+      web-tables.js
+      progress-bar.feature   # Cenário 5: Progress Bar
+      progress-bar.js
   pageObject/
     api/
       BookstoreApi.js        # POM de serviços da API BookStore/Account
+    pages/
+      HomePage.js            # Navegação principal
+      FormsPage.js           # Página de Forms
+      ElementsPage.js        # Página de Elements
+      AlertsFrameWindowsPage.js
+      BrowserWindowsPage.js
+      WebTablesPage.js
+      WidgetsPage.js
+      ProgressBarPage.js
+    forms/
+      PracticeForm.js        # POM do formulário de prática
 src/
   utils/
     userGenerator.js         # Generator de credenciais de usuário
+    practiceFormDataGenerator.js  # Generator de dados do formulário
+    webTablesDataGenerator.js     # Generator de dados para tabelas
 cypress.config.js            # Configuração Cypress + Cucumber
 ```
 
@@ -38,10 +60,13 @@ cypress.config.js            # Configuração Cypress + Cucumber
     5. Alugar dois livros para o usuário (`POST /BookStore/v1/Books`)
     6. Listar detalhes do usuário com os livros alugados (`GET /Account/v1/User/{userId}`)
 
-- **Front/UI (planejado)**
-  - Os testes E2E de interface serão organizados em `cypress/e2e/front` (ou `ui`),
-  - com Page Objects em `cypress/pageObject/pages` e `cypress/pageObject/forms`,
-  - mantendo a mesma filosofia de reutilização e arquitetura da camada de API.
+- **Front/UI (`cypress/e2e/front`)**
+  - Testes E2E de interface organizados com Page Objects em `cypress/pageObject/pages` e `cypress/pageObject/forms`.
+  - Cenários implementados:
+    1. **Practice Form** – Preenchimento e submissão de formulário com dados dinâmicos
+    2. **Browser Windows** – Abertura de nova janela e validação de conteúdo
+    3. **Web Tables** – CRUD completo de registros + Bônus (criação/deleção de 12 registros dinâmicos)
+    4. **Progress Bar** – Controle da barra de progresso (parar antes de 25%, validar e completar até 100%)
 
 ### Padrões adotados
 
@@ -49,12 +74,16 @@ cypress.config.js            # Configuração Cypress + Cucumber
   Ex.: `Cenário: Deve alugar dois livros e validar no usuário`
 - **Código em inglês** (variáveis, funções, classes)  
   Ex.: `generateUserCredentials`, `BookstoreApi`, `rentBooks`
-- **Page Object Model para API**
-  - `BookstoreApi` encapsula todas as chamadas HTTP (createUser, generateToken, listBooks, rentBooks, getUserDetails).
+- **Page Object Model (POM)**
+  - **API**: `BookstoreApi` encapsula todas as chamadas HTTP (createUser, generateToken, listBooks, rentBooks, getUserDetails).
+  - **UI**: Page Objects organizados por página (`HomePage`, `FormsPage`, `WebTablesPage`, etc.) e formulários (`PracticeForm`).
+  - **Padronização de seletores**: Todos os Page Objects utilizam objeto `selectors` no construtor para centralizar seletores CSS, facilitando manutenção e evitando repetição de código.
 - **Separação de responsabilidades**
   - Steps BDD apenas orquestram o fluxo,
-  - lógica de request fica no POM,
+  - lógica de request/interação fica no POM,
   - geração de dados em `utils`.
+- **Dados dinâmicos**
+  - Geração automática de credenciais, dados de formulários e registros de tabelas para evitar massa estática e conflitos entre testes.
 
 ### Como executar o projeto
 
@@ -70,12 +99,19 @@ npm install
 npx cypress open
 ```
 
-- Selecionar o spec `bookstore.feature` dentro de `cypress/e2e/api`.
+- Selecionar o spec desejado dentro de `cypress/e2e/api` (testes de API) ou `cypress/e2e/front` (testes de UI).
 
 3. Executar testes em modo headless (CI):
 
 ```bash
+# Todos os testes
 npx cypress run
+
+# Apenas testes de API
+npx cypress run --env TAGS='@api'
+
+# Apenas testes de UI
+npx cypress run --env TAGS='@ui'
 ```
 
 ### Pipelines de CI (GitHub Actions)
