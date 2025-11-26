@@ -1,0 +1,34 @@
+name: CI Front
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "cypress/e2e/front/**"
+      - "cypress/pageObject/pages/**"
+      - "cypress/pageObject/forms/**"
+      - "cypress.config.js"
+      - "package.json"
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ui-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar testes de UI (@ui)
+        run: npx cypress run --env TAGS='@ui'
+
+
